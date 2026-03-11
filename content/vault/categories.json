@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "reading",
+    "title": "Reading",
+    "description": "Books, essays, and highlighted ideas.",
+    "intro": "Browse a tactile shelf where every spine opens a note.",
+    "interaction": "shelf",
+    "palette": { "from": "#F6E8D7", "to": "#E2C59F", "ink": "#3B2417" }
+  },
+  {
+    "slug": "podcasts",
+    "title": "Podcasts",
+    "description": "Episodes worth revisiting.",
+    "intro": "A listening queue with playable cards and progress memory.",
+    "interaction": "queue",
+    "palette": { "from": "#DDF4FF", "to": "#B6DCF2", "ink": "#102A42" }
+  },
+  {
+    "slug": "videos",
+    "title": "Videos",
+    "description": "Visual explainers and talks.",
+    "intro": "A retro TV setup where each DVD loads a YouTube video.",
+    "interaction": "tv",
+    "palette": { "from": "#FDE1D2", "to": "#F6C9AC", "ink": "#4B2313" }
+  },
+  {
+    "slug": "ai",
+    "title": "AI",
+    "description": "Prompts, models, and experiments.",
+    "intro": "A prompt lab with compact experiments and outcomes.",
+    "interaction": "lab",
+    "palette": { "from": "#E5F6E8", "to": "#BEE3C6", "ink": "#173525" }
+  },
+  {
+    "slug": "design-inspirations",
+    "title": "Design Inspirations",
+    "description": "UI references and systems to study.",
+    "intro": "A moodboard layout for references, textures, and patterns.",
+    "interaction": "moodboard",
+    "palette": { "from": "#FFF4D5", "to": "#F4E2A6", "ink": "#3A2A11" }
+  },
+  {
+    "slug": "motivations",
+    "title": "Motivations",
+    "description": "Principles and reminders.",
+    "intro": "Stacked quote cards that surface what matters right now.",
+    "interaction": "stack",
+    "palette": { "from": "#FFE4E4", "to": "#F7BFC2", "ink": "#4A1822" }
+  },
+  {
+    "slug": "visuals",
+    "title": "Visuals",
+    "description": "Imagery, compositions, and references.",
+    "intro": "A gallery wall for still visuals and composition studies.",
+    "interaction": "gallery",
+    "palette": { "from": "#E9EDFF", "to": "#CDD6F9", "ink": "#1C2552" }
+  },
+  {
+    "slug": "motion",
+    "title": "Motion",
+    "description": "Transitions, timing, and animation notes.",
+    "intro": "A frame timeline to document motion language.",
+    "interaction": "timeline",
+    "palette": { "from": "#E4FBF8", "to": "#B9EDE6", "ink": "#123C39" }
+  },
+  {
+    "slug": "tweets",
+    "title": "Tweets",
+    "description": "Ideas from the timeline worth saving.",
+    "intro": "A clean social feed view for signal over noise.",
+    "interaction": "feed",
+    "palette": { "from": "#EEF3FF", "to": "#C9D9F5", "ink": "#1A2C4A" }
+  },
+  {
+    "slug": "more",
+    "title": "More",
+    "description": "Misc notes, links, and captures.",
+    "intro": "A flexible grid for everything else in the vault.",
+    "interaction": "grid",
+    "palette": { "from": "#F0F0F0", "to": "#DBDBDB", "ink": "#1F1F1F" }
+  }
+]

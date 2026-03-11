@@ -1,164 +1,107 @@
 import {
-  Container,
-  VStack,
-  Text,
-  Flex,
   Box,
+  Container,
+  Flex,
   HStack,
+  Icon,
+  IconButton,
+  Link,
   Menu,
   MenuButton,
-  IconButton,
-  MenuList,
   MenuItem,
-  Icon,
-  MenuGroup,
-  Link,
+  MenuList,
+  Text,
 } from "@chakra-ui/react";
+import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { PropsWithChildren } from "react";
 import { FiMenu } from "react-icons/fi";
 
-function Navigation({
-  link,
-  children,
-  isExternal,
-}: {
-  link: string;
-  children: string;
-  isExternal?: boolean;
-}) {
+const vaultLinks = [
+  { label: "Reading", href: "/vault/reading" },
+  { label: "Podcasts", href: "/vault/podcasts" },
+  { label: "Videos", href: "/vault/videos" },
+  { label: "AI", href: "/vault/ai" },
+  { label: "Design", href: "/vault/design-inspirations" },
+  { label: "Motion", href: "/vault/motion" },
+  { label: "Tweets", href: "/vault/tweets" },
+];
+
+function NavLink({ href, label }: { href: string; label: string }) {
   const router = useRouter();
-  const isActive =
-    link === "/" ? router.asPath === link : router.asPath.includes(link);
+  const isActive = router.asPath === href;
 
   return (
     <Link
-      href={link}
-      target={isExternal ? "_blank" : "_self"}
-      color={isActive ? "black" : "gray.500"}
-      _hover={{ color: "black" }}
+      as={NextLink}
+      href={href}
+      px={3}
+      py={2}
+      borderRadius="full"
+      bg={isActive ? "blackAlpha.900" : "transparent"}
+      color={isActive ? "white" : "blackAlpha.800"}
+      _hover={{ textDecoration: "none", bg: isActive ? "blackAlpha.900" : "blackAlpha.100" }}
+      fontSize="sm"
+      whiteSpace="nowrap"
     >
-      <Text fontSize="lg">{children}</Text>
+      {label}
     </Link>
   );
 }
 
-function Layout({ children }: PropsWithChildren) {
+export default function Layout({ children }: PropsWithChildren) {
   return (
-    <Container
-      position="relative"
-      mt={{ base: 16 }}
-      pb={{ base: 8, md: "10em" }}
-      gap={{ md: 10 }}
-    >
-      <Flex
-        position="absolute"
-        right="100%"
-        mr="160px"
-        display={{ base: "none", lg: "flex" }}
+    <Box minH="100vh">
+      <Box
+        position="sticky"
+        top={0}
+        zIndex={120}
+        bg="rgba(255,255,255,0.62)"
+        borderBottom="1px solid"
+        borderBottomColor="whiteAlpha.700"
+        backdropFilter="blur(18px) saturate(165%)"
       >
-        <VStack position="fixed" align="flex-start" spacing={10}>
-          <VStack align="flex-start">
-            <Text fontWeight="bold" fontSize="smaller">
-              NAVIGATION
-            </Text>
-            <Navigation link="/">Home</Navigation>
-            <Navigation link="/reading">Reading</Navigation>
-            <Navigation link="/writing">Writing</Navigation>
-            <Navigation link="/deep-dives">Deep Dives</Navigation>
-          </VStack>
-          <VStack align="flex-start">
-            <Text fontWeight="bold" fontSize="smaller">
-              FIND ME ON
-            </Text>
-            <Navigation link="https://twitter.com/majmudaradam" isExternal>
-              Twitter
-            </Navigation>
-            <Navigation link="https://substack.com/@adammaj" isExternal>
-              Substack
-            </Navigation>
-            <Navigation link="https://github.com/adam-maj" isExternal>
-              GitHub
-            </Navigation>
-          </VStack>
-        </VStack>
-      </Flex>
-      <Container width={{ md: "container.md" }} position="relative">
-        <Box
-          width="100%"
-          bg="white"
-          height={16}
-          position="fixed"
-          top={0}
-          zIndex={100}
-          display={{ base: "none", lg: "block" }}
-        />
-        <Flex
-          justify="space-between"
-          position="fixed"
-          top={0}
-          display={{ base: "flex", lg: "none" }}
-          height={12}
-          zIndex={50}
-          left={0}
-          width="100%"
-          align="center"
-          borderBottom="1px solid"
-          borderBottomColor="gray.200"
-          bg="white"
-        >
-          <Container px={8}>
-            <Flex justify="space-between" width="100%">
-              <HStack spacing={8}>
-                <Navigation link="/">Home</Navigation>
-                <Navigation link="/reading">Reading</Navigation>
-                <Navigation link="/writing">Writing</Navigation>
-              </HStack>
-              <Menu>
-                <MenuButton
-                  as={IconButton}
-                  aria-label="Options"
-                  icon={<Icon as={FiMenu} boxSize={4} />}
-                  variant="outline"
-                  size="sm"
-                />
-                <MenuList>
-                  <MenuGroup title="NAVIGATION">
-                    <VStack align="flex-start" px={4} spacing={3} mb={4}>
-                      <Navigation link="/">Home</Navigation>
-                      <Navigation link="/reading">Reading</Navigation>
-                      <Navigation link="/writing">Writing</Navigation>
-                      <Navigation link="/deep-dives">Deep Dives</Navigation>
-                    </VStack>
-                  </MenuGroup>
-                  <MenuGroup title="FIND ME ON">
-                    <VStack align="flex-start" px={4} spacing={3} mb={2}>
-                      <Navigation
-                        link="https://twitter.com/majmudaradam"
-                        isExternal
-                      >
-                        Twitter
-                      </Navigation>
-                      <Navigation
-                        link="https://substack.com/@adammaj"
-                        isExternal
-                      >
-                        Substack
-                      </Navigation>
-                      <Navigation link="https://github.com/adam-maj" isExternal>
-                        GitHub
-                      </Navigation>
-                    </VStack>
-                  </MenuGroup>
-                </MenuList>
-              </Menu>
-            </Flex>
-          </Container>
-        </Flex>
+        <Container maxW="container.xl" px={{ base: 4, md: 8 }}>
+          <Flex align="center" justify="space-between" h="74px" gap={3}>
+            <Link as={NextLink} href="/vault" _hover={{ textDecoration: "none" }}>
+              <Text fontWeight="800" letterSpacing="0.06em" textTransform="uppercase" fontSize="sm">
+                District Vault
+              </Text>
+            </Link>
+
+            <HStack spacing={1} overflowX="auto" display={{ base: "none", md: "flex" }}>
+              <NavLink href="/vault" label="Sections" />
+              {vaultLinks.map((link) => (
+                <NavLink key={link.href} href={link.href} label={link.label} />
+              ))}
+            </HStack>
+
+            <Menu>
+              <MenuButton
+                as={IconButton}
+                aria-label="Open vault menu"
+                icon={<Icon as={FiMenu} />}
+                variant="outline"
+                display={{ base: "inline-flex", md: "none" }}
+              />
+              <MenuList>
+                <MenuItem as={NextLink} href="/vault">
+                  Sections
+                </MenuItem>
+                {vaultLinks.map((link) => (
+                  <MenuItem key={link.href} as={NextLink} href={link.href}>
+                    {link.label}
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
+          </Flex>
+        </Container>
+      </Box>
+
+      <Container maxW="container.xl" px={{ base: 4, md: 8 }} py={{ base: 6, md: 9 }}>
         {children}
       </Container>
-    </Container>
+    </Box>
   );
 }
-
-export default Layout;

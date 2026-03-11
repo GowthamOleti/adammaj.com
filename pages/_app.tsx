@@ -1,21 +1,30 @@
 import type { AppProps } from "next/app";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import { Prose, withProse } from "@nikolovlazar/chakra-ui-prose";
+import { withProse } from "@nikolovlazar/chakra-ui-prose";
 import Layout from "../components/Layout";
 import { ReactElement } from "react";
 import { DefaultSeo } from "next-seo";
 import posthog from "posthog-js";
 import React from "react";
 import { useRouter } from "next/router";
-import { Lora } from "@next/font/google";
-
-const lora = Lora({ subsets: ["latin"], display: "swap" });
 
 const theme = extendTheme(
   {
     fonts: {
-      heading: lora.style.fontFamily,
-      body: lora.style.fontFamily,
+      heading: "\"Iowan Old Style\", \"Palatino Linotype\", serif",
+      body: "\"Avenir Next\", \"Segoe UI\", sans-serif",
+    },
+    styles: {
+      global: {
+        body: {
+          bgGradient: "linear(to-b, #f9f6f0, #eef4fb 65%, #edf5f1)",
+          color: "#1f2937",
+        },
+        "::selection": {
+          bg: "blackAlpha.800",
+          color: "white",
+        },
+      },
     },
   },
   withProse({
@@ -28,7 +37,7 @@ const theme = extendTheme(
         my: 3,
       },
       a: {
-        color: "blue.500",
+        color: "blue.600",
         _focus: {
           boxShadow: "none !important",
         },
@@ -37,18 +46,18 @@ const theme = extendTheme(
   })
 );
 
-const getDefaultLayout = (page: ReactElement) => (
-  <Layout>
-    <Prose>{page}</Prose>
-  </Layout>
-);
+const getDefaultLayout = (page: ReactElement) => <Layout>{page}</Layout>;
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const getLayout = Component.getLayout || getDefaultLayout;
 
   React.useEffect(() => {
-    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_API_KEY || "", {
+    if (!process.env.NEXT_PUBLIC_POSTHOG_API_KEY) {
+      return;
+    }
+
+    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_API_KEY, {
       api_host: "https://app.posthog.com",
     });
 
@@ -58,23 +67,24 @@ export default function App({ Component, pageProps }: AppProps) {
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
-  }, []);
+  }, [router.events]);
 
   return (
     <ChakraProvider theme={theme}>
       <DefaultSeo
-        title="Adam Majmudar"
-        description="about me + my reading, writing, and deep dives"
+        title="District Vault"
+        description="A personal vault for reading, podcasts, videos, AI, design inspirations, motivations, visuals, motion, tweets, and more."
         openGraph={{
-          title: "Adam Majmudar",
-          description: "about me + my reading, writing, and deep dives",
+          title: "District Vault",
+          description:
+            "A personal vault for reading, podcasts, videos, AI, design inspirations, motivations, visuals, motion, tweets, and more.",
           images: [
             {
               url: "https://adammaj.com/og-image-dark.jpg",
               type: "image/jpeg",
             },
           ],
-          siteName: "Adam Majmudar",
+          siteName: "District Vault",
         }}
       />
       {getLayout(<Component {...pageProps} />)}
